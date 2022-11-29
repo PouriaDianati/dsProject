@@ -16,6 +16,7 @@
  // You can add #include statements if you wish.
 #include <string>
 #include "Patient.h"
+#include "Node.h"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ class List {
 
 private:
 
-
+	Node* head;
 	/*
 	 * You can add more attributes to this class,
 	 * but you cannot remove the attributes below
