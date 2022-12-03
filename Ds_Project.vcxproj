@@ -20,15 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h" />
-    <ClInclude Include="myVector.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Patient.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="List.cpp" />
-    <ClCompile Include="myVector.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Patient.cpp" />
+    <ClCompile Include="Source1.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

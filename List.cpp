@@ -1,4 +1,5 @@
 #pragma once
+#include<iostream>
 #include <string>
 #include "Patient.h"
 #include "Node.h"
@@ -102,29 +103,37 @@ bool List::remove(const Patient& toBeRemoved)
 
 void List::removeAll()
 {
-	Node* Temp1 = new Node();
-	Node* Temp2 = new Node();
-	Temp1 = (head);
-	Temp2 = (head->getNext());
-	while (Temp1)
+	if (head != NULL)
 	{
+		Node* Temp1 = new Node();
+		Node* Temp2 = new Node();
+		Temp1 = (head);
+		Temp2 = (head->getNext());
+		while (Temp2)
+		{
+			Temp1 = NULL;
+			delete Temp1;
+			Temp1 = Temp2;
+			Temp2 = (Temp2->getNext());
+		}
 		Temp1 = NULL;
 		delete Temp1;
-		Temp1 = Temp2;
-		Temp2 = (Temp1->getNext());
 	}
+	
 }
 
 
 Patient* List::search(const Patient& target)
 {
 	Node* Temp = new Node();
+	
 	Temp = head;
 	while (Temp->getNext())
 	{
 		if (Temp->getData() == target)
 		{
-			return &(Temp->getData());
+			auto temp = Temp->getData();
+			return &temp;
 		}
 		Temp = Temp->getNext();
 	}
