@@ -9,6 +9,7 @@ using namespace std;
 List::List()
 {
 	this->head = NULL;
+	this->elementCount = 0;
 }
 
 List::~List()
@@ -21,40 +22,52 @@ int List::getElementCount() const
 	return elementCount;
 }
 
+void List::set_capacity(int a)
+{
+	this->capacity = a;
+}
+
 bool List::insert(const Patient& newElement)
 {
-	Node* NewPatient = new Node();
-	NewPatient->setData(newElement);
-	if (this->head == NULL)
+	if (this->elementCount < this->capacity)
 	{
-		head = NewPatient;
-		elementCount++;
-	}
-	else if (head->getData()<newElement)
-	{
-		NewPatient->setNext(head);
-		head = NewPatient;
-		elementCount++;
-	}
-	else
-	{
-		Node* temp = new Node();
-		temp = head;
-		while (temp->getNext()->getData() > newElement||temp->getNext()==NULL)
+		Node* NewPatient = new Node();
+		NewPatient->setData(newElement);
+		if (this->head == NULL)
 		{
-			temp = temp->getNext();
+			head = NewPatient;
+			elementCount++;
 		}
-		if (temp->getNext()->getData() == newElement)
+		else if (head->getData()<newElement)
 		{
-			cout << "Error Same Id";
-			return 0;
+			NewPatient->setNext(head);
+			head = NewPatient;
+			elementCount++;
 		}
 		else
 		{
-			NewPatient->setNext(temp->getNext());
-			temp->setNext(NewPatient);
-			elementCount++;
+			Node* temp = new Node();
+			temp = head;
+			while (temp->getNext()->getData() > newElement || temp->getNext() == NULL)
+			{
+				temp = temp->getNext();
+			}
+			if (temp->getNext()->getData() == newElement)
+			{
+				cout << "Error Same Id";
+				return 0;
+			}
+			else
+			{
+				NewPatient->setNext(temp->getNext());
+				temp->setNext(NewPatient);
+				elementCount++;
+			}
 		}
+	}
+	else
+	{
+		cout << "hospital is full";
 	}
 }
 
@@ -89,14 +102,16 @@ bool List::remove(const Patient& toBeRemoved)
 
 void List::removeAll()
 {
+	Node* Temp1 = new Node();
 	Node* Temp2 = new Node();
+	Temp1 = (head);
 	Temp2 = (head->getNext());
-	while (Temp2)
+	while (Temp1)
 	{
-		head = NULL;
-		delete head;
-		head = Temp2;
-		Temp2 = head->getNext();
+		Temp1 = NULL;
+		delete Temp1;
+		Temp1 = Temp2;
+		Temp2 = (Temp1->getNext());
 	}
 }
 
@@ -109,7 +124,7 @@ Patient* List::search(const Patient& target)
 	{
 		if (Temp->getData() == target)
 		{
-			return Temp->getData();
+			return &(Temp->getData());
 		}
 		Temp = Temp->getNext();
 	}

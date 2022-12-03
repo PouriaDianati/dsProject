@@ -54,6 +54,9 @@ public:
 	// Description: Destruct a List object, releasing heap-allocated memory.
 	~List();
 
+	// set capacity
+	void set_capacity(int a);
+
 	// Description: Returns the total element count currently stored in List.
 	int  getElementCount() const;
 
