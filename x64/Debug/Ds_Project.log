@@ -1,2 +1,8 @@
-﻿  Source1.cpp
+﻿  List.cpp
+  Node.cpp
+  Patient.cpp
+  Source1.cpp
+  Generating Code...
+D:\dsProject\List.cpp(151): warning C4172: returning address of local variable or temporary: temp
+D:\dsProject\List.cpp(87): warning C4715: 'List::insert': not all control paths return a value
   Ds_Project.vcxproj -> D:\dsProject\x64\Debug\Ds_Project.exe

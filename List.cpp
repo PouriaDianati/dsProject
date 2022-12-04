@@ -49,21 +49,35 @@ bool List::insert(const Patient& newElement)
 		{
 			Node* temp = new Node();
 			temp = head;
-			while (temp->getNext()->getData() > newElement || temp->getNext() == NULL)
-			{
-				temp = temp->getNext();
-			}
-			if (temp->getNext()->getData() == newElement)
-			{
-				cout << "Error Same Id";
-				return 0;
-			}
-			else
+			if (temp->getNext() == NULL)
 			{
 				NewPatient->setNext(temp->getNext());
 				temp->setNext(NewPatient);
 				elementCount++;
+				return 1;
 			}
+			while (temp->getNext() != NULL || temp->getNext()->getData() > newElement)
+			{
+				if (temp->getNext()->getData() == newElement)
+				{
+					cout << "Error Same Id";
+					return 0;
+				}
+				else
+				{
+					NewPatient->setNext(temp->getNext());
+					temp->setNext(NewPatient);
+					elementCount++;
+					return 1;
+				}
+				if (temp->getNext() == NULL)
+				{
+					break;
+				}
+				temp = temp->getNext();
+				
+			}
+			
 		}
 	}
 	else
@@ -118,6 +132,7 @@ void List::removeAll()
 		}
 		Temp1 = NULL;
 		delete Temp1;
+		elementCount = 0;
 	}
 	
 }
@@ -145,7 +160,7 @@ void List::printList()
 {
 	Node* Temp = new Node();
 	Temp = head;
-	while (Temp->getNext())
+	while (Temp)
 	{
 		cout << Temp->getData() << "\n";
 		Temp = Temp->getNext();
