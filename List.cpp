@@ -9,7 +9,10 @@ using namespace std;
 
 List::List()
 {
-	this->head = NULL;
+	//making epty head node for our list and set element_count to 0
+	Node* P = new Node();
+	head = P;
+	head->setNext(NULL);
 	this->elementCount = 0;
 }
 
@@ -23,32 +26,37 @@ int List::getElementCount() const
 	return elementCount;
 }
 
+//using this function to set capacity to check when we insert
 void List::set_capacity(int a)
 {
 	this->capacity = a;
 }
 
+//insert in order from high to low
 bool List::insert(const Patient& newElement)
 {
+	//check capacity
 	if (this->elementCount < this->capacity)
 	{
 		Node* NewPatient = new Node();
 		NewPatient->setData(newElement);
-		if (this->head == NULL)
+		//check if our list is empty
+		if (this->head->getNext() == NULL)
 		{
-			head = NewPatient;
+			head->setNext(NewPatient);
 			elementCount++;
 		}
-		else if (head->getData()<newElement)
+		//check if our patient has higher number than our first member
+		else if (head->getNext()->getData()<newElement)
 		{
-			NewPatient->setNext(head);
-			head = NewPatient;
+			NewPatient->setNext(head->getNext());
+			head->setNext(NewPatient);
 			elementCount++;
 		}
 		else
 		{
 			Node* temp = new Node();
-			temp = head;
+			temp = head->getNext();
 			if (temp->getNext() == NULL)
 			{
 				NewPatient->setNext(temp->getNext());
@@ -56,6 +64,7 @@ bool List::insert(const Patient& newElement)
 				elementCount++;
 				return 1;
 			}
+			// check the place to put patient
 			while (temp->getNext() != NULL || temp->getNext()->getData() > newElement)
 			{
 				if (temp->getNext()->getData() == newElement)
@@ -88,7 +97,7 @@ bool List::insert(const Patient& newElement)
 
 bool List::remove(const Patient& toBeRemoved)
 {
-	if (head == NULL)
+	if (head->getNext() == NULL)
 	{
 		cout << "There is no Patient with this information";
 		return 0;
@@ -97,7 +106,7 @@ bool List::remove(const Patient& toBeRemoved)
 	{
 		Node* temp = new Node();
 		Node* deleted_Patient = new Node();
-		temp = head;
+		temp = head->getNext();
 		while (temp->getNext()!=NULL)
 		{
 			if (temp->getNext()->getData() == toBeRemoved)
@@ -159,7 +168,7 @@ Patient* List::search(const Patient& target)
 void List::printList()
 {
 	Node* Temp = new Node();
-	Temp = head;
+	Temp = head->getNext();
 	while (Temp)
 	{
 		cout << Temp->getData() << "\n";
